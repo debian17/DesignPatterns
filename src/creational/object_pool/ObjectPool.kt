@@ -1,4 +1,4 @@
-package object_pool
+package creational.object_pool
 
 import java.lang.RuntimeException
 import java.util.*

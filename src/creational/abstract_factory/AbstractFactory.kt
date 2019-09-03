@@ -1,4 +1,4 @@
-package abstract_factory
+package creational.abstract_factory
 
 //Base classes
 abstract class King(protected val name: String) {

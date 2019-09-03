@@ -1,19 +1,36 @@
-import abstract_factory.*
-import builder.SmartPhone
-import factory_method.*
-import object_pool.ExpensiveObjectPool
-import prototype.Sheep
+import creational.abstract_factory.*
+import creational.builder.SmartPhone
+import creational.factory_method.*
+import creational.object_pool.ExpensiveObjectPool
+import creational.prototype.Sheep
+import structural.adapter.Captain
+import structural.adapter.FishingAdapter
+import structural.adapter.FishingBoat
+import structural.bridge.*
+import structural.decorator.ShieldWarrior
+import structural.decorator.SimpleWarrior
+import structural.decorator.SwordWarrior
+import structural.decorator.Warrior
+import structural.facade.SystemFacade
 
 fun main() {
 
+    //Generative
     //printFactoryMethodExample()
     //printAbstractFactoryExample()
     //printBuilderExample()
     //printPrototypeExample()
     //printObjectPoolExample()
 
+    //Structural
+    //printDecoratorExample()
+    //printAdapterExample()
+    //printBridgeExample()
+    //printFacadeExample()
+
 }
 
+//Generative
 fun printFactoryMethodExample() {
     var blacksmith: Blacksmith
     var axe: Weapon
@@ -125,5 +142,60 @@ fun printObjectPoolExample() {
     if (obj6 != null) {
         println(obj6.id)
     }
+
+}
+
+//Structural
+fun printDecoratorExample() {
+    val simpleWarrior: Warrior = SimpleWarrior()
+    println("Simple warrior power = ${simpleWarrior.getWarriorPower()}")
+
+    //add sword decoration to simple warrior
+    val swordWarrior: Warrior = SwordWarrior(simpleWarrior)
+    println("Sword warrior power = ${swordWarrior.getWarriorPower()}")
+
+    //add shield decoration to simple warrior
+    val shieldWarrior: Warrior = ShieldWarrior(simpleWarrior)
+    println("Shield warrior power = ${shieldWarrior.getWarriorPower()}")
+
+    //add sword and shield decoration to simple warrior
+    val megaWarrior: Warrior = ShieldWarrior(SwordWarrior(simpleWarrior))
+    println("Mega warrior power = ${megaWarrior.getWarriorPower()}")
+
+}
+
+fun printAdapterExample() {
+    val fishingBoat = FishingBoat()
+
+    val fishingAdapter = FishingAdapter(fishingBoat)
+
+    val captain = Captain(fishingAdapter)
+
+    captain.move()
+
+}
+
+fun printBridgeExample() {
+
+    val tv = Tv()
+    val radio = Radio()
+
+    val simpleRemote = SimpleRemote(tv)
+
+    val advancedRemote = AdvancedRemote(radio, 1)
+
+    simpleRemote.volumeUp()
+
+    advancedRemote.mute()
+
+}
+
+fun printFacadeExample() {
+
+    val systemFacade = SystemFacade()
+
+    systemFacade.start()
+
+    systemFacade.stop()
 
 }

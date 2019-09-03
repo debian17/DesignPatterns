@@ -1,4 +1,4 @@
-package factory_method
+package creational.factory_method
 
 enum class WeaponType {
     AXE,

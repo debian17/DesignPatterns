@@ -1,4 +1,4 @@
-package builder
+package creational.builder
 
 class SmartPhone private constructor(builder: Builder) {
 
