@@ -7,11 +7,17 @@ import structural.adapter.Captain
 import structural.adapter.FishingAdapter
 import structural.adapter.FishingBoat
 import structural.bridge.*
+import structural.composite.Circle
+import structural.composite.Line
+import structural.composite.ShapeComposite
 import structural.decorator.ShieldWarrior
 import structural.decorator.SimpleWarrior
 import structural.decorator.SwordWarrior
 import structural.decorator.Warrior
 import structural.facade.SystemFacade
+import structural.flyweight.Box
+import structural.flyweight.SizeFactory
+import structural.proxy.*
 
 fun main() {
 
@@ -27,6 +33,9 @@ fun main() {
     //printAdapterExample()
     //printBridgeExample()
     //printFacadeExample()
+    //printProxyExample()
+    //printFlyweightExample()
+    //printCompositeExample()
 
 }
 
@@ -198,4 +207,63 @@ fun printFacadeExample() {
 
     systemFacade.stop()
 
+}
+
+fun printProxyExample() {
+
+    //SAMPLE #1
+    val operation = SimpleOperation()
+    val executor: OperationExecutor = SimpleProxyOperationExecutor()
+    executor.execute(operation)
+
+    //SAMPLE #2
+    val elfTower = ElfWarriorTower()
+
+    val elfProxyTower = ElfProxyTower(elfTower)
+
+    val warrior1 = ElfWarrior("1")
+    val warrior2 = ElfWarrior("2")
+    val warrior3 = ElfWarrior("3")
+
+    elfProxyTower.enter(warrior1)
+    elfProxyTower.enter(warrior2)
+    elfProxyTower.enter(warrior3)
+
+}
+
+fun printFlyweightExample() {
+
+    val length = 3
+    val weight = 4
+    val height = 5
+
+    val boxes = ArrayList<Box>()
+
+    var i = 0
+    while (i < 5) {
+        val size = SizeFactory.getBoxSize(length, weight, height)
+        val box = Box(i, size, i.toString())
+
+        boxes.add(box)
+
+        i++
+    }
+
+}
+
+fun printCompositeExample() {
+    val circle = Circle(1, 1, 1)
+
+    val rootShapeComposite = ShapeComposite()
+    rootShapeComposite.add(circle)
+
+    val line1 = Line(1, 1, 1, 1)
+    val line2 = Line(2, 2, 2, 2)
+    val childComposite = ShapeComposite()
+    childComposite.add(line1)
+    childComposite.add(line2)
+
+    rootShapeComposite.add(childComposite)
+
+    rootShapeComposite.draw()
 }
